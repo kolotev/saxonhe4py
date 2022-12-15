@@ -42,16 +42,24 @@ of the container.
 
 ```python
 import os
-from jdk4py import JAVA
+from pathlib import Path
+
+from jdk4py import JAVA, JAVA_HOME
 from saxonhe4py import SAXON_HE_JAR
 from jsaxonpy import Xslt
 
+# following env variable must be defined, otherwise pyjnius would fail
+os.environ["JAVA_HOME"] = str(JAVA_HOME)
+os.environ["JDK_HOME"] = str(JAVA_HOME)
 
-os.environ.update({
-    "JVM_OPTIONS": os.environ.get("JVM_OPTIONS", "-Xmx64m"),
-    "CLASSPATH": os.environ.get("CLASSPATH", "") + os.pathsep + str(SAXON_HE_JAR),
-    "PATH": os.environ.get("PATH", "") + os.pathsep + str(JAVA)
-})
+# to find the location of Saxon HE
+os.environ["CLASSPATH"] = str(SAXON_HE_JAR)
+
+# setup JVM options
+os.environ["JVM_OPTIONS"] = "-Xmx64m"
+
+# setup PATH to make java executable available for shell commands
+os.environ["PATH"] = os.environ.get("PATH", "") + os.pathsep + str(JAVA)
 
 xml = "<root><child>text</child></root>"
 xsl = """
@@ -63,6 +71,17 @@ xsl = """
 """
 t = Xslt()
 print(t.transform(xml, xsl))
+```
+
+If you need to pass XSL params or use catalog file for DTD resolution,
+assuming code above, following snippet would help:
+
+```python
+catalog = Path("catalog.xml") # optional catalog location
+t = Xslt(catalog=catalog)
+
+xsl_params = {"param1": "value1", "param2": "value2", ...}
+print(t.transform(xml, xsl, params=xsl_params))
 ```
 
 ## Versioning
