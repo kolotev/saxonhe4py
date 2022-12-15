@@ -34,7 +34,7 @@ Java version 17.0.3
 ...
 ```
 
-### With jsaxonpy
+### With jsaxonpy & Google functions
 
 Could be convinient if you want to execute your code as cloud function
 where there is no java VM nor Saxon are avaiable in the environment
