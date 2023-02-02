@@ -73,7 +73,7 @@ def transform(request):
   </xsl:stylesheet>
   """
 
-   output=t.transform(xml, xsl)
+   output = t.transform(xml, xsl)
 
    return output
 ```
@@ -93,8 +93,8 @@ print(t.transform(xml, xsl, params=xsl_params))
 
 ## Versioning
 
-`saxonhe4py`'s version contains 3 numbers:
+`saxonhe4py`'s version consist of 3 components:
 
-- The first 2 numbers are the Java Saxon HE version.
-- The third is `saxonhe4py` specific: it starts at 0 for each Java Saxon HE version and then increases.
+- The first two are corresponding to the Java Saxon HE version.
+- The third is `saxonhe4py` a release version for that version of Saxon HE.
 
