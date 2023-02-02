@@ -32,7 +32,7 @@ ${VENV}/bin/activate: pyproject.toml
 		echo "done"
 	else \
 		echo "installed."; \
-	fi && touch $@
+	fi
 
 
 activate: ${VENV}/bin/activate
