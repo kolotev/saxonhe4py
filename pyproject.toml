@@ -11,7 +11,7 @@ description = "A Saxon HE packaged for Python"
 authors = [{name = "Andrey Kolotev", email = "kolotev@gmail.com"}]
 readme = "README.md"
 license = {file = "LICENSE"}
-dynamic = ["version",]
+dynamic = ["version", "maintainers"]
 classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Intended Audience :: Developers",
@@ -52,7 +52,6 @@ test = [
 
 dev = [
     "tox>=3.3.0,<4",
-    "setuptools_scm>=6.2",
     "build",
     "twine",
 ]
@@ -69,9 +68,16 @@ saxon_he = ["**/*"]
 
 [tool.isort]
 profile = "black"
+skip = ["settings.py"]
 
-[tool.poetry]
-name = "saxonhe4py"
-version = "0.0.0"
-description = ""
-authors = []
+[tool.black]
+line-length = 99
+include = '/(?:tests|src)/.*\.pyi?$'
+exclude = '''
+(?:
+    /migrations/
+    | settings.py
+    | _version.py
+)
+'''
+target-version = ['py39']
